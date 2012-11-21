@@ -1,0 +1,13 @@
+*.log
+*core*
+*.o
+*.out
+*.txt
+*.dat
+.*.swp
+*.sh
+*neuria*
+*syncia*
+*upload*
+*download*
+*test*
