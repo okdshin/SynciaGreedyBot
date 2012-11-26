@@ -9,7 +9,7 @@ int main(int argc, char* argv[])
 	boost::asio::io_service service;
 	boost::asio::io_service::work w(service);
 	boost::thread_group thread_group;
-	int thread_num = 5;
+	int thread_num = 4;
 	for(int i = 0; i < thread_num; ++i){
 		thread_group.create_thread(boost::bind(&boost::asio::io_service::run, &service));
 	}
@@ -31,7 +31,7 @@ int main(int argc, char* argv[])
 	const unsigned int max_hop_count = 6;
 
 	std::stringstream no_output;
-	std::ostream& os = /*no_output;*/std::cout;
+	std::ostream& os = no_output;//*/std::cout;
 
 	auto server = neuria::network::SocketServer::Create(
 		service, local_port, buffer_size, os);

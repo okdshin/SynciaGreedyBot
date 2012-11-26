@@ -36,7 +36,8 @@ public:
 			node_id, spread_key_hash_max_count, max_hop_count, 
 			lower_session_pool, file_db, os);
 
-		auto request_file_action = RequestFileAction::Create(FileSystemPath("./updownload"), os);
+		auto request_file_action = 
+			RequestFileAction::Create(FileSystemPath("./updownload"), os);
 		auto request_file_behavior = RequestFileBehavior::Create(
 			buffer_size, file_db, os);
 
@@ -136,7 +137,9 @@ public:
 			30, 
 			[this]() -> neuria::timer::IsContinue {
 				for(const auto key_hash : this->file_db->GetFileKeyHashList()){
-					this->RequestFile(key_hash);
+					if(key_hash.GetOwnerId() != this->node_id){
+						this->RequestFile(key_hash);
+					}
 				}
 				return neuria::timer::IsContinue(true);
 			}
