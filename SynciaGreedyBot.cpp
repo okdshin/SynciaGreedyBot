@@ -31,7 +31,7 @@ int main(int argc, char* argv[])
 	const unsigned int max_hop_count = 6;
 
 	std::stringstream no_output;
-	std::ostream& os = no_output;//*/std::cout;
+	std::ostream& os = std::cout;
 
 	auto server = neuria::network::SocketServer::Create(
 		service, local_port, buffer_size, os);
