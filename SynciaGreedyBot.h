@@ -61,7 +61,7 @@ public:
 
 	auto SetOnRepliedFileFunc(
 			RequestFileAction::OnRepliedFileFunc on_replied_file_func) -> void {
-		this->request_file_action->SetOnRepliedFileFunc(on_replied_file_func);
+		this->on_replied_file_func = on_replied_file_func;
 	}
 
 	auto SetDownloadDirectoryPath(const FileSystemPath& path) -> void {
@@ -94,7 +94,7 @@ public:
 	}
 
 	auto RequestFile(const database::FileKeyHash& key_hash) -> void {
-		this->request_file_action->RequestFile(key_hash);
+		this->request_file_action->RequestFile(key_hash, this->on_replied_file_func);
 	}
 
 	auto Bind(neuria::network::Client::Pointer client) -> void {
@@ -191,6 +191,7 @@ private:
 	database::FileKeyHashDb::Pointer file_db;
 	neuria::network::NodeId node_id;
 
+	RequestFileAction::OnRepliedFileFunc on_replied_file_func;
 	std::ostream& os;
 };
 
