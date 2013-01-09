@@ -147,7 +147,7 @@ public:
 					bool is_already_exist = false;
 					for(const auto key_hash : this->file_db->GetFileKeyHashList()){
 						if(target_key_hash.GetHashId()() == key_hash.GetHashId()()
-							&& target_key_hash.GetOwnerId() == this->node_id){
+							&& key_hash.GetOwnerId() == this->node_id){
 							is_already_exist = true;
 						}
 					}
