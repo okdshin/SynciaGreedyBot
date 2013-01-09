@@ -136,10 +136,25 @@ public:
 		this->multiple_timer->AddCallbackFuncAndStartTimer(
 			30, 
 			[this]() -> neuria::timer::IsContinue {
+				/*
 				for(const auto key_hash : this->file_db->GetFileKeyHashList()){
 					if(key_hash.GetOwnerId() != this->node_id){
 						this->RequestFile(key_hash);
 					}
+				}*/
+
+				for(const auto target_key_hash : this->file_db->GetFileKeyHashList()){
+					bool is_already_exist = false;
+					for(const auto key_hash : this->file_db->GetFileKeyHashList()){
+						if(target_key_hash.GetHashId()() == key_hash.GetHashId()()
+							&& target_key_hash.GetOwnerId() == this->node_id){
+							is_already_exist = true;
+						}
+					}
+					if(!is_already_exist){
+						this->RequestFile(target_key_hash);
+					}
+
 				}
 				return neuria::timer::IsContinue(true);
 			}
