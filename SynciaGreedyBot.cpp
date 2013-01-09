@@ -55,6 +55,11 @@ int main(int argc, char* argv[])
 	auto multiple_timer = neuria::timer::MultipleTimer::Create(service);
 	syncia->Bind(multiple_timer);
 	syncia->Initialize();
+	syncia->SetOnRepliedFileFunc(
+		[](const database::FileKeyHash& key_hash){
+			std::cout << "Replied!:" << key_hash << std::endl;
+		}
+	);
 
 	auto shell = neuria::test::CuiShell(std::cout);
 	neuria::test::RegisterExitFunc(shell);
